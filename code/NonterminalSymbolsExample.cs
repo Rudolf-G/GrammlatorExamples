@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace GrammlatorExamples
 {
-   static class LeftRecursionExample
+   static class NonterminalSymbolsExample
    {
       enum SomeLetters
       {
@@ -12,16 +12,17 @@ namespace GrammlatorExamples
 
       #region grammar
       //| TerminalSymbolEnum: "SomeLetters";
-      //| InstructionErrorHalt: "DisplayRemainder(); return false;"
-      //| Symbol: "PeekSymbol()"; AcceptSymbol: "AcceptSymbol();";
+      //| SymbolNameOrFunctionCall: "PeekSymbol()";
+      //| SymbolAcceptInstruction: "AcceptSymbol();";
+      //| ErrorHaltInstruction: "DisplayRemainder(); return false;"
       //|
       //| precedingCharacters | a | b | c | successiveCharacters;
       //|
-      //| *= Sequence_of_b, a;
+      //| *= Variants;
       //|
-      //| Sequence_of_b=
-      //|   /* empty */
-      //|   | Sequence_of_b, b;
+      //| Variants=
+      //|   a, b 
+      //|   | b, a;
       #endregion grammar
 
       public static Boolean AnalyzeInput()
@@ -37,30 +38,31 @@ namespace GrammlatorExamples
          void DisplayRemainder()
             => Console.WriteLine(" Remainder of line: \"" + InputLine.Substring(i) + "\"");
 
-#region grammlator generated Sat, 09 May 2020 08:49:13 GMT (grammlator, File version 2020.04.07.1 09.05.2020 08:26:06)
-  /* State 1
-   * *Startsymbol= ►Sequence_of_b, a;
-   */
-State2:
-  /* State 2
-   * *Startsymbol= Sequence_of_b, ►a;
-   * Sequence_of_b= Sequence_of_b, ►b;
-   */
+#region grammlator generated 29 Sep 2020 (grammlator file version/date 2020.09.28.0/29 Sep 2020)
+  // State1:
+  /* *Startsymbol= ►Variants; */
   if (PeekSymbol() == SomeLetters.a)
      {
      AcceptSymbol();
-     /* Reduction 1
-      * *Startsymbol= Sequence_of_b, a;◄
-      */
-     goto EndOfGeneratedCode;
+     // State3:
+     /* Variants= a, ►b; */
+     if (PeekSymbol() != SomeLetters.b)
+        goto EndWithError;
+     Debug.Assert(PeekSymbol() == SomeLetters.b);
+     goto AcceptEndOfGeneratedCode;
      }
   if (PeekSymbol() != SomeLetters.b)
-     {
      goto EndWithError;
-     }
   Debug.Assert(PeekSymbol() == SomeLetters.b);
   AcceptSymbol();
-  goto State2;
+  // State2:
+  /* Variants= b, ►a; */
+  if (PeekSymbol() != SomeLetters.a)
+     goto EndWithError;
+  Debug.Assert(PeekSymbol() == SomeLetters.a);
+AcceptEndOfGeneratedCode:
+  AcceptSymbol();
+  goto EndOfGeneratedCode;
 
 EndWithError:
   // This point is reached after an input error has been found
@@ -68,7 +70,8 @@ EndWithError:
 
 EndOfGeneratedCode:
   ;
-#endregion grammlator generated Sat, 09 May 2020 08:49:13 GMT (grammlator, File version 2020.04.07.1 09.05.2020 08:26:06)
+
+#endregion grammlator generated 29 Sep 2020 (grammlator file version/date 2020.09.28.0/29 Sep 2020)
          DisplayRemainder();
          return true;
       }

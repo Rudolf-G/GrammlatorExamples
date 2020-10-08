@@ -13,8 +13,8 @@ namespace GrammlatorExamples
 
       #region grammar
       //| TerminalSymbolEnum: "SomeLetters";
-      //| InstructionErrorHalt: "DisplayRemainder(); return false;"
-      //| Symbol: "PeekSymbol()"; AcceptSymbol: "AcceptSymbol();";
+      //| SymbolNameOrFunctionCall: "PeekSymbol()"; SymbolAcceptInstruction: "AcceptSymbol();";
+      //| ErrorHaltInstruction: "DisplayRemainder(); return false;"
       //| StateStack: "StateStack"; StateStackInitialCountVariable: "StateStackInitialCount";
       //| AttributeStack: "_a";
       //|
@@ -22,8 +22,10 @@ namespace GrammlatorExamples
       //|
       //| *= Letter_a_to_f;
       //|
-      //| Letter_a_to_f-= // Minus sign followed by equals character followed by list of terminal symbols
+      //| // all except is defined by minus character followed by equals character followed by list of terminal symbols
+      //| Letter_a_to_f-= // all input symbols except c, e, CharactersPreceding_a and CharactersFollowing_f
       //|   c | e | CharactersPreceding_a | CharactersFollowing_f;
+      //|
       #endregion grammar
 
       public static Boolean AnalyzeInput()
@@ -39,24 +41,23 @@ namespace GrammlatorExamples
          void DisplayRemainder()
             => Console.WriteLine(" Remainder of line: \"" + InputLine.Substring(i) + "\"");
 
-#region grammlator generated Sat, 09 May 2020 08:44:24 GMT (grammlator, File version 2020.04.07.1 09.05.2020 08:26:06)
-  /* State 1
-   * *Startsymbol= ►Letter_a_to_f;
-   */
-  if (PeekSymbol() <= SomeLetters.CharactersPreceding_a
-     || PeekSymbol() == SomeLetters.c
-     || PeekSymbol() == SomeLetters.e
-     || PeekSymbol() >= SomeLetters.CharactersFollowing_f)
-     {
+#region grammlator generated 29 Sep 2020 (grammlator file version/date 2020.09.28.0/29 Sep 2020)
+  const Int64 _fCharactersPreceding_a = 2L << (Int32)SomeLetters.CharactersPreceding_a;
+  const Int64 _fa = 2L << (Int32)SomeLetters.a;
+  const Int64 _fb = 2L << (Int32)SomeLetters.b;
+  const Int64 _fc = 2L << (Int32)SomeLetters.c;
+  const Int64 _fd = 2L << (Int32)SomeLetters.d;
+  const Int64 _fe = 2L << (Int32)SomeLetters.e;
+  const Int64 _ff = 2L << (Int32)SomeLetters.f;
+  const Int64 _fCharactersFollowing_f = 2L << (Int32)SomeLetters.CharactersFollowing_f;
+  Boolean _IsIn(Int64 flags) => ((2L << (Int32)PeekSymbol()) & flags) != 0;
+
+  // State1:
+  /* *Startsymbol= ►Letter_a_to_f; */
+  if (!_IsIn(_fa | _fb | _fd | _ff))
      goto EndWithError;
-     }
-  Debug.Assert(PeekSymbol() == SomeLetters.a || PeekSymbol() == SomeLetters.b
-     || PeekSymbol() == SomeLetters.d
-     || PeekSymbol() == SomeLetters.f);
+  Debug.Assert(!_IsIn(_fCharactersPreceding_a | _fc | _fe | _fCharactersFollowing_f));
   AcceptSymbol();
-  /* Reduction 1
-   * *Startsymbol= Letter_a_to_f;◄
-   */
   goto EndOfGeneratedCode;
 
 EndWithError:
@@ -65,7 +66,8 @@ EndWithError:
 
 EndOfGeneratedCode:
   ;
-#endregion grammlator generated Sat, 09 May 2020 08:45:48 GMT (grammlator, File version 2020.04.07.1 09.05.2020 08:26:06)
+
+#endregion grammlator generated 29 Sep 2020 (grammlator file version/date 2020.09.28.0/29 Sep 2020)
          DisplayRemainder();
          return true;
       }

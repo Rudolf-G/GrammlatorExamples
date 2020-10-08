@@ -11,8 +11,8 @@ namespace GrammlatorExamples
       }
 
       #region grammar
-      //| TerminalSymbolEnum: "SomeLetters"; InstructionErrorHalt: "DisplayRemainder(); return false;"
-      //| Symbol: "PeekSymbol()"; AcceptSymbol: "AcceptSymbol();";
+      //| TerminalSymbolEnum: "SomeLetters"; ErrorHaltInstruction: "DisplayRemainder(); return false;"
+      //| SymbolNameOrFunctionCall: "PeekSymbol()"; SymbolAcceptInstruction: "AcceptSymbol();";
       //| StateStack: "StateStack"; StateStackInitialCountVariable: "StateStackInitialCount";
       //| AttributeStack: "AttrStack";
       //|
@@ -46,65 +46,48 @@ namespace GrammlatorExamples
          void DisplayRemainder()
             => Console.WriteLine("Remainder of line: \"" + InputLine.Substring(i)+ "\"");
 
-#region grammlator generated Sat, 09 May 2020 08:46:33 GMT (grammlator, File version 2020.04.07.1 09.05.2020 08:26:06)
-  /* State 1
-   * *Startsymbol= ►aa;
+#region grammlator generated 29 Sep 2020 (grammlator file version/date 2020.09.28.0/29 Sep 2020)
+  // State1:
+  /* *Startsymbol= ►aa;
    * *Startsymbol= ►aaaa;
-   * *Startsymbol= ►Sequence_of_b;
-   */
+   * *Startsymbol= ►Sequence_of_b; */
   if (PeekSymbol() == SomeLetters.a)
      {
      AcceptSymbol();
-     /* State 3
-      * aa= a, ►a;
-      * aaaa= a, ►a, a, a;
-      */
+     // State3:
+     /* aa= a, ►a;
+      * aaaa= a, ►a, a, a; */
      if (PeekSymbol() != SomeLetters.a)
-        {
         goto EndWithError;
-        }
-  Debug.Assert(PeekSymbol() == SomeLetters.a);
-     AcceptSymbol();
-     /* State 4
-      * aa= a, a●;
-      * aaaa= a, a, ►a, a;
-      */
-     if (PeekSymbol() != SomeLetters.a)
-        goto Reduce1;
      Debug.Assert(PeekSymbol() == SomeLetters.a);
      AcceptSymbol();
-     /* State 5
-      * aaaa= a, a, a, ►a;
-      */
+     // State4:
+     /* aa= a, a●;
+      * aaaa= a, a, ►a, a; */
      if (PeekSymbol() != SomeLetters.a)
-        {
-        goto EndWithError;
-        }
-  Debug.Assert(PeekSymbol() == SomeLetters.a);
+        goto EndOfGeneratedCode;
+     Debug.Assert(PeekSymbol() == SomeLetters.a);
      AcceptSymbol();
-     goto Reduce1;
+     // State5:
+     /* aaaa= a, a, a, ►a; */
+     if (PeekSymbol() != SomeLetters.a)
+        goto EndWithError;
+     Debug.Assert(PeekSymbol() == SomeLetters.a);
+     AcceptSymbol();
+     goto EndOfGeneratedCode;
      }
   if (PeekSymbol() != SomeLetters.b)
-     {
      goto EndWithError;
-     }
   Debug.Assert(PeekSymbol() == SomeLetters.b);
 AcceptState2:
   AcceptSymbol();
-  /* State 2
-   * *Startsymbol= Sequence_of_b●;
-   * Sequence_of_b= Sequence_of_b, ►b;
-   */
+  // State2:
+  /* *Startsymbol= Sequence_of_b●;
+   * Sequence_of_b= Sequence_of_b, ►b; */
   if (PeekSymbol() != SomeLetters.b)
-     goto Reduce1;
+     goto EndOfGeneratedCode;
   Debug.Assert(PeekSymbol() == SomeLetters.b);
   goto AcceptState2;
-
-Reduce1:
-  /* Reduction 1
-   * *Startsymbol= aa;◄
-   */
-  goto EndOfGeneratedCode;
 
 EndWithError:
   // This point is reached after an input error has been found
@@ -112,7 +95,8 @@ EndWithError:
 
 EndOfGeneratedCode:
   ;
-#endregion grammlator generated Sat, 09 May 2020 08:46:33 GMT (grammlator, File version 2020.04.07.1 09.05.2020 08:26:06)
+
+#endregion grammlator generated 29 Sep 2020 (grammlator file version/date 2020.09.28.0/29 Sep 2020)
 
          DisplayRemainder();
          return true;
