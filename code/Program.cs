@@ -4,29 +4,31 @@ using System.IO;
 namespace GrammlatorExamples {
    class Program {
       private struct ExampleDescriptionAndMethod {
-         public String Description;
+         public string Description;
 
-         public Func<Boolean> DoIt;
+         public Func<string, bool> DoIt;
 
-         public ExampleDescriptionAndMethod(String description, Func<Boolean> doIt)
+         public ExampleDescriptionAndMethod(String description, Func<string, bool> doIt)
          {
             Description = description;
             DoIt = doIt;
          }
       }
 
-      static void Main(string[] args)
+      static void Main()
       {
-      ExampleDescriptionAndMethod[] Examples = new ExampleDescriptionAndMethod[]
-         {
+         ExampleDescriptionAndMethod[] Examples = new ExampleDescriptionAndMethod[]
+            {
             new ExampleDescriptionAndMethod("Example which defines an empty startsymbol *= ",
                RegionsAndMinimalGrammarExample.RunExample ),
+            new ExampleDescriptionAndMethod("Hello example which uses terminalsymbols *=h e l l o eol",
+               TerminalSymbols1stExample.WriteAnswer ),
             new ExampleDescriptionAndMethod(
                "Example with two terminal symbols defined by enum *= a | b | c | d, c, b | d, b, c ;",
-               TerminalSymbols1stExample.AnalyzeInput ),
+               TerminalSymbols2ndExample.AnalyzeInput ),
             new ExampleDescriptionAndMethod(
                "Example with two terminal symbols defined within grammlator *= a | b | c | d, c, b | d, b, c ;",
-               TerminalSymbols1stExample.AnalyzeInput ),
+               TerminalSymbols2ndExample.AnalyzeInput ),
             new ExampleDescriptionAndMethod(
                "Example with a nonterminal symbol Variants = a, b | b, a ;",
                NonterminalSymbolsExample.AnalyzeInput ),
@@ -48,9 +50,10 @@ namespace GrammlatorExamples {
             new ExampleDescriptionAndMethod(
                "Example with conflicts and priorities.",
                (new ConflictsAndPrioritiesExample()).AnalyzeInput)
-};
+            };
 
-         String Line;
+         string Line;
+
          do
          {
             //  Display examples descriptions
@@ -71,7 +74,7 @@ namespace GrammlatorExamples {
 
                try
                {
-                  if (Examples[number - 1].DoIt())
+                  if (Examples[number - 1].DoIt(Console.ReadLine()))
                      Console.WriteLine("Example returned true  :-)");
                   else
                      Console.WriteLine("Example returned false  :-(");

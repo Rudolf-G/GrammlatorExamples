@@ -8,10 +8,9 @@ namespace GrammlatorExamples {
    class RevertExampleUsingAttributes {
       enum AorBorEnd { a, b, End, Other }
 
-      public Boolean AnalyzeInput()
+      public Boolean AnalyzeInput(string line)
       {
-         Console.WriteLine("Please input a sequence of 'a's and 'b's:");
-         String Line = Console.ReadLine();
+         String Line = line;
          int i = 0;
 
          // Local methods

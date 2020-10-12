@@ -25,9 +25,9 @@ namespace GrammlatorExamples
       //|   | Sequence_of_b, b;
       #endregion grammar
 
-      public static Boolean AnalyzeInput()
+      public static Boolean AnalyzeInput(string line)
       {
-         String InputLine = Console.ReadLine() + '*';
+         String InputLine = line + '*';
          int i = 0;
 
          // Local methods

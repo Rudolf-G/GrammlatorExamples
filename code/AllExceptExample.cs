@@ -6,19 +6,19 @@ namespace GrammlatorExamples
 {
    static class AllExceptExample
    {
-      private enum SomeLetters
-      {
-         CharactersPreceding_a = (int)'a' - 1, a, b, c, d, e, f, CharactersFollowing_f
-      }
 
       #region grammar
       //| TerminalSymbolEnum: "SomeLetters";
-      //| SymbolNameOrFunctionCall: "PeekSymbol()"; SymbolAcceptInstruction: "AcceptSymbol();";
-      //| ErrorHaltInstruction: "DisplayRemainder(); return false;"
+      //| SymbolNameOrFunctionCall: "(SomeLetters)InputLine[i]";
+      //| SymbolAcceptInstruction: "i++;";
+      //| ErrorHaltInstruction: "DisplayRemainder(); return false;";
       //| StateStack: "StateStack"; StateStackInitialCountVariable: "StateStackInitialCount";
       //| AttributeStack: "_a";
+      //|LineLengthLimit: 80;
       //|
-      //| CharactersPreceding_a | a | b | c | d | e | f | CharactersFollowing_f;
+      private enum SomeLetters {
+         CharactersPreceding_a = 96, a, b, c, d, e, f, CharactersFollowing_f
+      }
       //|
       //| *= Letter_a_to_f;
       //|
@@ -28,36 +28,31 @@ namespace GrammlatorExamples
       //|
       #endregion grammar
 
-      public static Boolean AnalyzeInput()
+      public static Boolean AnalyzeInput(string line)
       {
-         String InputLine = Console.ReadLine() + '*';
+         String InputLine = line + '*';
          int i = 0;
 
-         // Local methods
-         SomeLetters PeekSymbol()
-            => (SomeLetters)InputLine[i];
-         void AcceptSymbol()
-            => i++;
          void DisplayRemainder()
             => Console.WriteLine(" Remainder of line: \"" + InputLine.Substring(i) + "\"");
 
-#region grammlator generated 29 Sep 2020 (grammlator file version/date 2020.09.28.0/29 Sep 2020)
-  const Int64 _fCharactersPreceding_a = 2L << (Int32)SomeLetters.CharactersPreceding_a;
-  const Int64 _fa = 2L << (Int32)SomeLetters.a;
-  const Int64 _fb = 2L << (Int32)SomeLetters.b;
-  const Int64 _fc = 2L << (Int32)SomeLetters.c;
-  const Int64 _fd = 2L << (Int32)SomeLetters.d;
-  const Int64 _fe = 2L << (Int32)SomeLetters.e;
-  const Int64 _ff = 2L << (Int32)SomeLetters.f;
-  const Int64 _fCharactersFollowing_f = 2L << (Int32)SomeLetters.CharactersFollowing_f;
-  Boolean _IsIn(Int64 flags) => ((2L << (Int32)PeekSymbol()) & flags) != 0;
+#region grammlator generated 12 Okt 2020 (grammlator file version/date 2020.10.10.0/11 Okt 2020)
+  const Int64 _fa = 1L << (Int32)(SomeLetters.a-96);
+  const Int64 _fb = 1L << (Int32)(SomeLetters.b-96);
+  const Int64 _fc = 1L << (Int32)(SomeLetters.c-96);
+  const Int64 _fd = 1L << (Int32)(SomeLetters.d-96);
+  const Int64 _fe = 1L << (Int32)(SomeLetters.e-96);
+  const Int64 _ff = 1L << (Int32)(SomeLetters.f-96);
+  Boolean _is(Int64 flags) => (1L << (Int32)(((SomeLetters)InputLine[i])-96) & flags) != 0;
 
   // State1:
   /* *Startsymbol= ►Letter_a_to_f; */
-  if (!_IsIn(_fa | _fb | _fd | _ff))
+  if (!_is(_fa | _fb | _fd | _ff))
      goto EndWithError;
-  Debug.Assert(!_IsIn(_fCharactersPreceding_a | _fc | _fe | _fCharactersFollowing_f));
-  AcceptSymbol();
+  Debug.Assert((SomeLetters)InputLine[i] > SomeLetters.CharactersPreceding_a
+         && (SomeLetters)InputLine[i] < SomeLetters.CharactersFollowing_f && !_is(
+        _fc | _fe));
+  i++;
   goto EndOfGeneratedCode;
 
 EndWithError:
@@ -67,7 +62,7 @@ EndWithError:
 EndOfGeneratedCode:
   ;
 
-#endregion grammlator generated 29 Sep 2020 (grammlator file version/date 2020.09.28.0/29 Sep 2020)
+#endregion grammlator generated 12 Okt 2020 (grammlator file version/date 2020.10.10.0/11 Okt 2020)
          DisplayRemainder();
          return true;
       }

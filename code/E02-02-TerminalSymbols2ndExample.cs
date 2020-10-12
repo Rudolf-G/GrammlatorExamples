@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 
 namespace GrammlatorExamples {
-   static class TerminalSymbols1stExample {
+   static class TerminalSymbols2ndExample {
       #region grammar
       //| ErrorHaltInstruction: "DisplayRemainder(); return false;"
       //| SymbolNameOrFunctionCall: "(MyLetters)InputLine[i]";
@@ -14,7 +14,7 @@ namespace GrammlatorExamples {
       //| *= a | b | c | d, c, b | d, b, c ;
       #endregion grammar
 
-      public static Boolean AnalyzeInput()
+      public static Boolean AnalyzeInput(string line)
       {
          String InputLine = Console.ReadLine() + '*';
          int i = 0;

@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 
 namespace GrammlatorExamples {
-   static class TerminalSymbols2ndExample {
+   static class TerminalSymbols3rdExample {
 
       #region grammar
       //| TerminalSymbolEnum: "ThreeLetters"; 
@@ -16,20 +16,19 @@ namespace GrammlatorExamples {
       //| /* Startsymbol : */ *= a | b | c | d, c, b | d, b, c ;
       #endregion grammar
 
-      public static Boolean AnalyzeInput()
+      public static Boolean AnalyzeInput(string inputLine)
       {
-         String InputLine = Console.ReadLine();
          int i = 0;
 
          // Local methods
          ThreeLetters PeekSymbol()
          {
-            char x = InputLine[i];
+            char x = inputLine[i];
             return (x < 'a') || x > 'd' ? ThreeLetters.other : (ThreeLetters)(x - 'a');
          }
          void AcceptSymbol() => i++;
          void DisplayRemainder()
-            => Console.WriteLine(" Remainder of line: \"" + InputLine.Substring(i) + "\"");
+            => Console.WriteLine(" Remainder of line: \"" + inputLine.Substring(i) + "\"");
 
 #region grammlator generated 4 Okt 2020 (grammlator file version/date 2020.10.03.0/4 Okt 2020)
   const ThreeLetters _fb = ThreeLetters.b;

@@ -32,10 +32,9 @@ namespace GrammlatorExamples
       //|
       #endregion grammar
 
-      public Boolean AnalyzeInput()
+      public Boolean AnalyzeInput(string line)
       {
-         Console.WriteLine("Please input \"aa\", \"aaaa\" or a sequence of b's");
-         String InputLine = Console.ReadLine() + "*";
+         String InputLine = line + "*";
          int i = 0;
 
          // Local methods
