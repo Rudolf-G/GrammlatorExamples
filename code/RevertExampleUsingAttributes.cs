@@ -8,7 +8,7 @@ namespace GrammlatorExamples {
    class RevertExampleUsingAttributes {
       enum AorBorEnd { a, b, End, Other }
 
-      public Boolean AnalyzeInput(string line)
+      public static Boolean AnalyzeInput(string line)
       {
          String Line = line;
          int i = 0;
@@ -24,7 +24,7 @@ namespace GrammlatorExamples {
             if (i < Line.Length)
                Console.WriteLine
                   (" The remainder of the line doesn't conform to the grammar:" +
-                   $" \"{Line.Substring(i)}\"");
+                   $@" ""{Line[i..]}""");
             Console.WriteLine();
          }
 
@@ -36,8 +36,8 @@ namespace GrammlatorExamples {
 
          #region grammar
          //| TerminalSymbolEnum: "AorBorEnd"; 
-         //| SymbolNameOrFunctionCall: "PeekSymbol()"; SymbolAcceptInstruction: "i++;";
-         //| ErrorHaltInstruction: "MyError(); return false;"
+         //| InputExpression: "PeekSymbol()"; InputAcceptInstruction: "i++;";
+         //| ErrorHaltInstruction: "MyError(); return false;";
          //| StateStack: "StateStack";
          //| AttributeStack: "AttrStack";
          //|
@@ -69,7 +69,7 @@ namespace GrammlatorExamples {
          }
          #endregion grammar
 
-#region grammlator generated 29 Sep 2020 (grammlator file version/date 2020.09.28.0/29 Sep 2020)
+#region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
   Int32 _StateStackInitialCount = StateStack.Count;
   Int32 _AttributeStackInitialCount = AttrStack.Count;
 
@@ -85,9 +85,9 @@ namespace GrammlatorExamples {
 
      goto State3;
      }
-  if (PeekSymbol() <= AorBorEnd.a)
+  if (PeekSymbol() == AorBorEnd.a)
      goto AcceptReduce2;
-  if (PeekSymbol() >= AorBorEnd.Other)
+  if (PeekSymbol() == AorBorEnd.Other)
      goto EndWithError;
   Debug.Assert(PeekSymbol() == AorBorEnd.b);
 AcceptReduce3:
@@ -95,7 +95,7 @@ AcceptReduce3:
   // Reduce3:
   /* aAdjust: 1
    * AorB(char x)= b;◄ */
-  AttrStack.Allocate();
+  AttrStack.Allocate(1);
 
   DisplayAndAssignB(
      x: out AttrStack.PeekRef(0)._char
@@ -115,15 +115,15 @@ State2:
      }
   if (PeekSymbol() == AorBorEnd.b)
      goto AcceptReduce3;
-  if (PeekSymbol() >= AorBorEnd.Other)
+  if (PeekSymbol() == AorBorEnd.Other)
      goto EndWithError;
-  Debug.Assert(PeekSymbol() <= AorBorEnd.a);
+  Debug.Assert(PeekSymbol() == AorBorEnd.a);
 AcceptReduce2:
   i++;
   // Reduce2:
   /* aAdjust: 1
    * AorB(char x)= a;◄ */
-  AttrStack.Allocate();
+  AttrStack.Allocate(1);
 
   DisplayAndAssignA(
      x: out AttrStack.PeekRef(0)._char
@@ -138,19 +138,19 @@ State3:
   // Reduce6:
   /* *Startsymbol= Sequence_of_a_and_b, End;◄ */
   // Halt: a definition of the startsymbol with 0 attributes has been recognized.
-  StateStack.Pop();
+  StateStack.Remove(1);
   goto EndOfGeneratedCode;
 
 Reduce5:
   /* sAdjust: -1, aAdjust: -1
    * Sequence_of_a_and_b= AorB(char ch), Sequence_of_a_and_b;◄ */
-  StateStack.Pop();
+  StateStack.Remove(1);
 
   DisplayAorB(
      ch: AttrStack.PeekRef(0)._char
      );
 
-  AttrStack.Remove();
+  AttrStack.Remove(1);
   // Branch1:
   if (StateStack.Peek() == 0)
      goto State3;
@@ -158,14 +158,13 @@ Reduce5:
 
 EndWithError:
   // This point is reached after an input error has been found
-  StateStack.Discard(StateStack.Count - _StateStackInitialCount);
+  StateStack.Remove(StateStack.Count - _StateStackInitialCount);
   AttrStack.Remove(AttrStack.Count - _AttributeStackInitialCount);
   MyError(); return false;
-
 EndOfGeneratedCode:
   ;
 
-#endregion grammlator generated 29 Sep 2020 (grammlator file version/date 2020.09.28.0/29 Sep 2020)
+#endregion grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
 
          Success();
          return true;

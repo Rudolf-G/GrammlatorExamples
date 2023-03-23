@@ -23,15 +23,15 @@ namespace GrammlatorExamples
          void AcceptSymbol()
             => i++;
          void DisplayRemainder()
-            => Console.WriteLine(" Remainder of line: \"" + InputLine.Substring(i) + "\"");
+            => Console.WriteLine(" Remainder of line: \"" + InputLine[i..] + "\"");
 
-         var StateStack = new Stack<Int32>(50);
+         var StateStack = new Stack<Int32>(50); // use Stack-Extension Discard
 
       #region grammar
       //| TerminalSymbolEnum: "SomeLetters";
-      //| SymbolNameOrFunctionCall: "PeekSymbol()"; SymbolAcceptInstruction: "AcceptSymbol();";
-      //| ErrorHaltInstruction: "DisplayRemainder(); return false;"
-      //| StateStack: "StateStack"; StateStackInitialCountVariable: "StateStackInitialCount";
+      //| InputExpression: "PeekSymbol()"; InputAcceptInstruction: "AcceptSymbol();";
+      //| ErrorHaltInstruction: "DisplayRemainder(); return false;";
+      //| StateStack: "StateStack";
       //| AttributeStack: "_a";
       //|
       //| precedingCharacters | a | b | c | successiveCharacters;
@@ -43,8 +43,8 @@ namespace GrammlatorExamples
       //|   | b, Sequence_of_b_ending_with_a;
       #endregion grammar
 
-#region grammlator generated 29 Sep 2020 (grammlator file version/date 2020.09.28.0/29 Sep 2020)
-  Int32 StateStackInitialCount = StateStack.Count;
+#region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
+  Int32 _StateStackInitialCount = StateStack.Count;
 
   // State1:
   /* *Startsymbol= ►Sequence_of_b_ending_with_a; */
@@ -75,13 +75,13 @@ AcceptState2:
 Reduce1:
   /* *Startsymbol= Sequence_of_b_ending_with_a;◄ */
   // Halt: a definition of the startsymbol with 0 attributes has been recognized.
-  StateStack.Pop();
+  StateStack.Remove(1);
   goto EndOfGeneratedCode;
 
 Reduce2:
   /* sAdjust: -1
    * Sequence_of_b_ending_with_a= b, Sequence_of_b_ending_with_a;◄ */
-  StateStack.Pop();
+  StateStack.Remove(1);
   // Branch1:
   if (StateStack.Peek() == 0)
      goto Reduce1;
@@ -89,13 +89,12 @@ Reduce2:
 
 EndWithError:
   // This point is reached after an input error has been found
-  StateStack.Discard(StateStack.Count - StateStackInitialCount);
+  StateStack.Remove(StateStack.Count - _StateStackInitialCount);
   DisplayRemainder(); return false;
-
 EndOfGeneratedCode:
   ;
 
-#endregion grammlator generated 29 Sep 2020 (grammlator file version/date 2020.09.28.0/29 Sep 2020)
+#endregion grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
          DisplayRemainder();
          return true;
       }

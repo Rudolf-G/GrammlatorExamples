@@ -1,26 +1,17 @@
-﻿using System;
+using System;
 
 namespace GrammlatorExamples {
    static class TerminalSymbols1stExample {
       #region grammar
       //| /* grammlator settings: */
-      //| SymbolNameOrFunctionCall: "Peek()";
-      //| SymbolAcceptInstruction: "Column++;";
+      //| InputExpression: "Peek()";
+      //| InputAcceptInstruction: "Column++;";
       //| ErrorHaltInstruction: "return false;";
       //| GenerateComments: false; // recommended: true;
-      //| DebugAssertMethod: ""; // recommended: "Debug.Assert";
+      //| NameOfAssertMethod: ""; // recommended: "Debug.Assert";
       //|
-      //| /* declaration of terminal symbols: */
-      enum SomeLetters { e = 101, f, g, h, i, j, k, l, m, n, o, eol, other };
-
-      //|
-      //| /* The 1st grammar rule defines the startsymbol "*" */
-      //| *= h, e, l, l, o, eol
-      private static void Hello() => Console.WriteLine(":-)");
-      // This C# method will be called by the generated code
-      // when "hello" followed by end of line is recognized 
-
-      //| 
+      //| /* Declaration of the terminal symbols by an enum: */
+      enum SomeLetters : ushort { e = 101, f, g, h, i, j, k, l, m, n, o, eol, other };
       #endregion grammar
 
       static public bool WriteAnswer(string line)
@@ -34,37 +25,48 @@ namespace GrammlatorExamples {
                   ? SomeLetters.eol
                   : CharToSomeLetters(line[Column]);
 
-         #region grammlator generated 11 Okt 2020 (grammlator file version/date 2020.10.10.0/10 Okt 2020)
-         if (Peek() != SomeLetters.h)
-            goto EndWithError;
-         Column++;
-         if (Peek() > SomeLetters.e)
-            goto EndWithError;
-         Column++;
-         if (Peek() != SomeLetters.l)
-            goto EndWithError;
-         Column++;
-         if (Peek() != SomeLetters.l)
-            goto EndWithError;
-         Column++;
-         if (Peek() != SomeLetters.o)
-            goto EndWithError;
-         Column++;
-         if (Peek() != SomeLetters.eol)
-            goto EndWithError;
-         Column++;
+         #region grammar
+         //|
+         //| /* The 1st grammar rule defines the startsymbol "*" */
+         //| *= h, e, l, l, o, eol
+         static void Hello() => Console.WriteLine(":-)");
+         // This C# method will be called by the generated code
+         // when "hello" followed by "eol" is recognized 
 
-         Hello();
+         //| 
+         #endregion grammar
 
-         goto EndOfGeneratedCode;
+#region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
 
-      EndWithError:
-         return false;
+  if (Peek() != SomeLetters.h)
+     goto EndWithError;
+  Column++;
+  if (Peek() != SomeLetters.e)
+     goto EndWithError;
+  Column++;
+  if (Peek() != SomeLetters.l)
+     goto EndWithError;
+  Column++;
+  if (Peek() != SomeLetters.l)
+     goto EndWithError;
+  Column++;
+  if (Peek() != SomeLetters.o)
+     goto EndWithError;
+  Column++;
+  if (Peek() != SomeLetters.eol)
+     goto EndWithError;
+  Column++;
 
-      EndOfGeneratedCode:
-         ;
+  Hello();
 
-         #endregion grammlator generated 11 Okt 2020 (grammlator file version/date 2020.10.10.0/10 Okt 2020)
+  goto EndOfGeneratedCode;
+
+EndWithError:
+  return false;
+EndOfGeneratedCode:
+  ;
+
+#endregion grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
 
          return true;
       }

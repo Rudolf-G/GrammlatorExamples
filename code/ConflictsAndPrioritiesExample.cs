@@ -5,18 +5,12 @@ namespace GrammlatorExamples
 {
    internal class ConflictsAndPrioritiesExample
    {
-      private enum SomeLetters
-      {
-         precedingCharacters = (int)'a' - 1, a, b, c, successiveCharacters
-      }
-
       #region grammar
-      //| TerminalSymbolEnum: "SomeLetters"; ErrorHaltInstruction: "DisplayRemainder(); return false;"
-      //| SymbolNameOrFunctionCall: "PeekSymbol()"; SymbolAcceptInstruction: "AcceptSymbol();";
-      //| StateStack: "StateStack"; StateStackInitialCountVariable: "StateStackInitialCount";
-      //| AttributeStack: "AttrStack";
+      //| ErrorHaltInstruction: "DisplayRemainder(); return false;";
+      //| InputExpression: "PeekSymbol()"; InputAcceptInstruction: "AcceptSymbol();";
+      //| StateStack: "StateStack"; AttributeStack: "AttrStack";
       //|
-      //| precedingCharacters | a | b | c | successiveCharacters;
+      enum SomeLetters { a, b, c}
       //|
       //| *= aa 
       //|   | aaaa 
@@ -32,7 +26,7 @@ namespace GrammlatorExamples
       //|
       #endregion grammar
 
-      public Boolean AnalyzeInput(string line)
+      public static Boolean AnalyzeInput(string line)
       {
          String InputLine = line + "*";
          int i = 0;
@@ -43,9 +37,10 @@ namespace GrammlatorExamples
          void AcceptSymbol()
             => i++;
          void DisplayRemainder()
-            => Console.WriteLine("Remainder of line: \"" + InputLine.Substring(i)+ "\"");
+            => Console.WriteLine($@"Remainder of line: ""{InputLine[i..]}""");
 
-#region grammlator generated 29 Sep 2020 (grammlator file version/date 2020.09.28.0/29 Sep 2020)
+#region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
+
   // State1:
   /* *Startsymbol= ►aa;
    * *Startsymbol= ►aaaa;
@@ -75,7 +70,7 @@ namespace GrammlatorExamples
      AcceptSymbol();
      goto EndOfGeneratedCode;
      }
-  if (PeekSymbol() != SomeLetters.b)
+  if (PeekSymbol() == SomeLetters.c)
      goto EndWithError;
   Debug.Assert(PeekSymbol() == SomeLetters.b);
 AcceptState2:
@@ -91,11 +86,10 @@ AcceptState2:
 EndWithError:
   // This point is reached after an input error has been found
   DisplayRemainder(); return false;
-
 EndOfGeneratedCode:
   ;
 
-#endregion grammlator generated 29 Sep 2020 (grammlator file version/date 2020.09.28.0/29 Sep 2020)
+#endregion grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
 
          DisplayRemainder();
          return true;

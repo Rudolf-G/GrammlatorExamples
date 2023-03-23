@@ -1,41 +1,50 @@
 using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace GrammlatorExamples {
    static class TerminalSymbols3rdExample {
-
+      // a) The values of the terminal symbols are powers of 2 so that
+      //    grammlator can generate code that uses the symbols as flags
+      // b) The terminal symbols are declared twice:
+      //    grammlator checks if both declarations are consistent
       #region grammar
-      //| TerminalSymbolEnum: "ThreeLetters"; 
-      //| SymbolNameOrFunctionCall: "PeekSymbol()";
-      //| SymbolAcceptInstruction: "AcceptSymbol();";
-      //| ErrorHaltInstruction: "DisplayRemainder(); return false;"
-      //| CompareToFlagTestBorder: 1; IfToSwitchBorder: 2;
+      //| InputAssignInstruction: "";
+      //| InputExpression: "NextSymbol";
+      //| InputAcceptInstruction: "AcceptAndPeekSymbol();";
+      //| ErrorHaltInstruction: "DisplayRemainder(); return false;";
+      //| GenerateFlagTestStartingLevel: 2;
       //|
-      //| /* Terminal symbols: */ a | b | c | d | other
+      //| /* Terminal symbols (redundant declaration): */ 
+      //|     a=1 | b | c=4 | d=8 | other=16
       enum ThreeLetters { a = 1, b = 2, c = 4, d = 8, other = 16 }
-      //| /* Startsymbol : */ *= a | b | c | d, c, b | d, b, c ;
+      //| /* Startsymbol : */ 
+      //|     *= a | b | c | d, c, b | d, b, c ;
       #endregion grammar
 
       public static Boolean AnalyzeInput(string inputLine)
       {
          int i = 0;
+         ThreeLetters NextSymbol;
+
+         AcceptAndPeekSymbol();
 
          // Local methods
-         ThreeLetters PeekSymbol()
-         {
-            char x = inputLine[i];
-            return (x < 'a') || x > 'd' ? ThreeLetters.other : (ThreeLetters)(x - 'a');
-         }
-         void AcceptSymbol() => i++;
-         void DisplayRemainder()
-            => Console.WriteLine(" Remainder of line: \"" + inputLine.Substring(i) + "\"");
 
-#region grammlator generated 4 Okt 2020 (grammlator file version/date 2020.10.03.0/4 Okt 2020)
-  const ThreeLetters _fb = ThreeLetters.b;
-  const ThreeLetters _fc = ThreeLetters.c;
-  const ThreeLetters _fd = ThreeLetters.d;
-  const ThreeLetters _fother = ThreeLetters.other;
-  Boolean _Is(ThreeLetters flags) => ((PeekSymbol()) & flags) != 0;
+         void AcceptAndPeekSymbol()
+         {
+            char x = i < inputLine.Length
+               ? inputLine[i++]
+               : (char)0;
+            NextSymbol = (x < 'a') || x > 'd'
+               ? ThreeLetters.other
+               : (ThreeLetters)(1 << (x - 'a'));
+         }
+
+         void DisplayRemainder()
+            => Console.WriteLine($" Remainder of line: \"{inputLine[i..]}\"");
+
+#region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
 
   // State1:
   /* *Startsymbol= ►a;
@@ -43,46 +52,45 @@ namespace GrammlatorExamples {
    * *Startsymbol= ►c;
    * *Startsymbol= ►d, c, b;
    * *Startsymbol= ►d, b, c; */
-  if (!_Is(_fd | _fother))
+  if (NextSymbol <= ThreeLetters.c)
      goto AcceptEndOfGeneratedCode;
-  if (!_Is(_fd))
+  if (NextSymbol == ThreeLetters.other)
      goto EndWithError;
-  Debug.Assert(_Is(_fd));
-  AcceptSymbol();
+  Debug.Assert(NextSymbol == ThreeLetters.d);
+  AcceptAndPeekSymbol();
   // State2:
   /* *Startsymbol= d, ►c, b;
    * *Startsymbol= d, ►b, c; */
-  if (_Is(_fb))
+  if (NextSymbol == ThreeLetters.b)
      {
-     AcceptSymbol();
+     AcceptAndPeekSymbol();
      // State4:
      /* *Startsymbol= d, b, ►c; */
-     if (!_Is(_fc))
+     if (NextSymbol != ThreeLetters.c)
         goto EndWithError;
-     Debug.Assert(_Is(_fc));
+     Debug.Assert(NextSymbol == ThreeLetters.c);
      goto AcceptEndOfGeneratedCode;
      }
-  if (!_Is(_fc))
+  if (NextSymbol != ThreeLetters.c)
      goto EndWithError;
-  Debug.Assert(_Is(_fc));
-  AcceptSymbol();
+  Debug.Assert(NextSymbol == ThreeLetters.c);
+  AcceptAndPeekSymbol();
   // State3:
   /* *Startsymbol= d, c, ►b; */
-  if (!_Is(_fb))
+  if (NextSymbol != ThreeLetters.b)
      goto EndWithError;
-  Debug.Assert(_Is(_fb));
+  Debug.Assert(NextSymbol == ThreeLetters.b);
 AcceptEndOfGeneratedCode:
-  AcceptSymbol();
+  AcceptAndPeekSymbol();
   goto EndOfGeneratedCode;
 
 EndWithError:
   // This point is reached after an input error has been found
   DisplayRemainder(); return false;
-
 EndOfGeneratedCode:
   ;
 
-#endregion grammlator generated 4 Okt 2020 (grammlator file version/date 2020.10.03.0/4 Okt 2020)
+#endregion grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
          DisplayRemainder();
          return true;
       }

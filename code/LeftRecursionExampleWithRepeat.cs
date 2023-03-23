@@ -5,18 +5,11 @@ namespace GrammlatorExamples
 {
    static class LeftRecursionExampleWithRepeat
    {
-      enum SomeLetters
-      {
-         precedingCharacters = (int)'a' - 1, a, b, c, successiveCharacters
-      }
-
       #region grammar
-      //| TerminalSymbolEnum: "SomeLetters";
-      //| SymbolNameOrFunctionCall: "PeekSymbol()";
-      //| SymbolAcceptInstruction: "AcceptSymbol();";
-      //| ErrorHaltInstruction: "DisplayRemainder(); return false;"
+      //| InputExpression: "(SomeLetters)InputLine[i]";
+      //| InputAcceptInstruction: "i++;";
       //|
-      //| precedingCharacters | a | b | c | successiveCharacters;
+      enum SomeLetters { precedingCharacters = 96, a, b, c, successiveCharacters }
       //|
       //| *= b*, a;
       //|
@@ -28,36 +21,31 @@ namespace GrammlatorExamples
          int i = 0;
 
          // Local methods
-         SomeLetters PeekSymbol()
-            => (SomeLetters)InputLine[i];
-         void AcceptSymbol()
-            => i++;
          void DisplayRemainder()
-            => Console.WriteLine(" Remainder of line: \"" + InputLine.Substring(i) + "\"");
+            => Console.WriteLine(" Remainder of line: \"" + InputLine[i..] + "\"");
 
-#region grammlator generated 29 Sep 2020 (grammlator file version/date 2020.09.28.0/29 Sep 2020)
+#region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
+
 State2:
   /* *Startsymbol= b*, ►a;
    * b*= b*, ►b; */
-  if (PeekSymbol() == SomeLetters.a)
+  if ((SomeLetters)InputLine[i] == SomeLetters.a)
      {
-     AcceptSymbol();
+     i++;
      goto EndOfGeneratedCode;
      }
-  if (PeekSymbol() != SomeLetters.b)
+  if ((SomeLetters)InputLine[i] != SomeLetters.b)
      goto EndWithError;
-  Debug.Assert(PeekSymbol() == SomeLetters.b);
-  AcceptSymbol();
+  Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.b);
+  i++;
   goto State2;
 
 EndWithError:
   // This point is reached after an input error has been found
-  DisplayRemainder(); return false;
-
 EndOfGeneratedCode:
   ;
 
-#endregion grammlator generated 29 Sep 2020 (grammlator file version/date 2020.09.28.0/29 Sep 2020)
+#endregion grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
          DisplayRemainder();
          return true;
       }

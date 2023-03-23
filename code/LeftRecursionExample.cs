@@ -12,9 +12,9 @@ namespace GrammlatorExamples
 
       #region grammar
       //| TerminalSymbolEnum: "SomeLetters";
-      //| ErrorHaltInstruction: "DisplayRemainder(); return false;"
-      //| SymbolNameOrFunctionCall: "PeekSymbol()";
-      //| SymbolAcceptInstruction: "AcceptSymbol();";
+      //| ErrorHaltInstruction: "DisplayRemainder(); return false;";
+      //| InputExpression: "PeekSymbol()";
+      //| InputAcceptInstruction: "AcceptSymbol();";
       //|
       //| precedingCharacters | a | b | c | successiveCharacters;
       //|
@@ -36,9 +36,10 @@ namespace GrammlatorExamples
          void AcceptSymbol()
             => i++;
          void DisplayRemainder()
-            => Console.WriteLine(" Remainder of line: \"" + InputLine.Substring(i) + "\"");
+            => Console.WriteLine(" Remainder of line: \"" + InputLine[i..] + "\"");
 
-#region grammlator generated 29 Sep 2020 (grammlator file version/date 2020.09.28.0/29 Sep 2020)
+#region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
+
 State2:
   /* *Startsymbol= Sequence_of_b, ►a;
    * Sequence_of_b= Sequence_of_b, ►b; */
@@ -56,11 +57,10 @@ State2:
 EndWithError:
   // This point is reached after an input error has been found
   DisplayRemainder(); return false;
-
 EndOfGeneratedCode:
   ;
 
-#endregion grammlator generated 29 Sep 2020 (grammlator file version/date 2020.09.28.0/29 Sep 2020)
+#endregion grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
          DisplayRemainder();
          return true;
       }

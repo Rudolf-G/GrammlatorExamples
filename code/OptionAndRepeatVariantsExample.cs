@@ -1,37 +1,62 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using GrammlatorRuntime;
 
 namespace GrammlatorExamples {
    static class OptionAndRepeatVariantsExample {
 
       #region grammar
       //| TerminalSymbolEnum: "SomeLetters";
-      //| SymbolNameOrFunctionCall: "(SomeLetters)InputLine[i]";
-      //| SymbolAcceptInstruction: "i++;";
+      //| InputExpression: "(SomeLetters)InputLine[i]";
+      //| InputAcceptInstruction: "i++;";
       //| ErrorHaltInstruction: "DisplayRemainder(); return false;";
-      //| OptimizeStateStackNumbers: false;
       //|
       enum SomeLetters {
-         precedingCharacters = 96, a, b, c, d, e, f, g, h, i, j, k, l, successiveCharacters
-      }
+         precedingCharacters = 96,
+         a, b, c, d, e, f, g, h, i, j, k, l, m, n, o ,p, q, r, s, t,
+         successiveCharacters }
       //|
-      //| *= examples l; 
+      //| *= examples t; 
+      //|    // concatenation without "," (grammlator: not allowed in combination with subsequent "(")
+      //| examples=    // definition of nonterminal symbol "=" (EBNF)
+      //|              /* comment */  // comment
+      //|              //  alternation "|" (EBNF) , 
+      //|     (a, b)   // concatenation "," (EBNF)
+      //|              // grouping "(..)" (EBNF), grammlator local grouping:
+      //|              //   (a, b) is equivalent to ...(local1)...; (local1)=a, b;
+      //|              //   the special name "(local1)" can not be used explicitely
+      //|   | (test=b) // grouping with rule, grammlator global grouping:
+      //|              //   equivalent to ...test...; test=b;
+      //|   | [c]      // optional  (EBNF), grammlator local optional:
+      //|              //   [c] is equivalent to ...(Local2)?...; (Local2)= c;
+      //|   | d?,   m  // optional, grammlator global optional
+      //|              //   grammlator defines d? by d?= | d; if not yet defined,. d? can be used explicitely
+      //|   | {e},  n  // repetition (EBNF), grammlator local repetition:
+      //|              //   {e} is eqivalent to ...(local3)*...; (Local3)=e;
+      //|   | f*,   o  // repetition, grammlator global left recursive repetition
+      //|              //   grammlator adds f*= | f*, f; if not yet defined (here f* is a name and not an expression)
+      //|   | g**,  p  // grammlator: global right recursive repetition
+      //|              //   grammlator adds g**= | g, g**; if not yet defined 
+      //|   | h+       // one or more times, grammlator: left recursive
+      //|              //   grammlator adds h+= | h+, h; if not yet defined 
+      //|   | i++      // grammlator: global right recursive one or more times
+      //|              //   grammlator adds i++= | i++, i; if not yet defined 
       //|
-      //| examples=
-      //|     (test=a)
-      //|   | b*
-      //|   | (c)*
-      //|   | d+
-      //|   | e++
-      //|   | f?
-      //|   | {g}
-      //|   | [h]
-      //|   | i, test, a, b*, (c)*, d+, e++, f?, {g}, [h];
+      //| // combining local grouping with repetitions makes repetitions local:    
+      //|   | (j)*, q  // repetition, grammlator: local grouping with left recursive repetition
+      //|              //   (g)* is equivalent to  ...(local4)*...; (local4)=g; (local4)*= |(local4)*, (local4);
+      //|   | (k)**, r // grammlator: local right recursive repetition
+      //|
+      //| // combining global grouping with repetitions declares global repetitions: 
+      //|   | (test2=l)+ //  ...(test2=l)+.. is eqivalent to ...test2+...; test2=l;
+      //|                //   grammlator adds test2+= test2, | test2+, test2; if not yet defined 
+      //|  //    ??+5??   // priority specification at the end of a definition (grammlator)
+      //|     ;        // terminator symbol (EBNF, optional in grammltor)
       //|
       #endregion grammar
 
-      public static void Discard(this Stack<Int32> s, int n)
+      private static void Discard(this Stack<Int32> s, int n)
       {
          while (n > 0)
          { n--; s.Pop(); }
@@ -43,88 +68,87 @@ namespace GrammlatorExamples {
          int i = 0;
 
          void DisplayRemainder()
-            => Console.WriteLine(" Remainder of line: \"" + InputLine.Substring(i) + "\"");
+            => Console.WriteLine($@" Remainder of line: ""{InputLine[i..]}""");
 
          var _s = new Stack<int>();
 
-#region grammlator generated 12 Okt 2020 (grammlator file version/date 2020.10.10.0/11 Okt 2020)
+#region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
   Int32 _StateStackInitialCount = _s.Count;
-  const Int64 _fc = 1L << (Int32)(SomeLetters.c-96);
-  const Int64 _fd = 1L << (Int32)(SomeLetters.d-96);
-  const Int64 _fe = 1L << (Int32)(SomeLetters.e-96);
-  const Int64 _ff = 1L << (Int32)(SomeLetters.f-96);
-  const Int64 _fg = 1L << (Int32)(SomeLetters.g-96);
-  const Int64 _fh = 1L << (Int32)(SomeLetters.h-96);
-  const Int64 _fl = 1L << (Int32)(SomeLetters.l-96);
-  Boolean _is(Int64 flags) => (1L << (Int32)(((SomeLetters)InputLine[i])-96) & flags) != 0;
 
   // State1:
-  /* *Startsymbol= ►examples, l; */
+  /* *Startsymbol= ►examples, t; */
   _s.Push(0);
   switch ((SomeLetters)InputLine[i])
   {
   // <= SomeLetters.precedingCharacters
-  // >= SomeLetters.successiveCharacters: goto EndWithError // see end of switch
-  case SomeLetters.j:
-  case SomeLetters.k:
+  // >= SomeLetters.successiveCharacters: goto EndWithError; // see end of switch
+  case SomeLetters.s:
      goto EndWithError;
   case SomeLetters.a:
-  case SomeLetters.f:
-  case SomeLetters.h:
      {
      i++;
-     goto State18;
+     // State15:
+     /* (Local1)= a, ►b; */
+     if ((SomeLetters)InputLine[i] != SomeLetters.b)
+        goto EndWithError;
+     Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.b);
+     goto AcceptState14;
      }
   case SomeLetters.b:
-  case SomeLetters.l:
-     goto State4;
   case SomeLetters.c:
-     goto State3;
+     goto AcceptState14;
   case SomeLetters.d:
-     goto AcceptState17;
-  case SomeLetters.e:
      {
      i++;
-     // State16:
-     /* *Startsymbol= examples, ►l;
-      * e++= e, ►e++; */// *Push(15)
-     if ((SomeLetters)InputLine[i] == SomeLetters.e)
-        {
-        i++;
-        // PushState3:
-        _s.Push(15);
-        goto State15;
-        }
-     if ((SomeLetters)InputLine[i] == SomeLetters.l)
-        {
-        i++;
-        // Reduce7:
-        /* *Startsymbol= examples, l;◄ */
-        goto ApplyStartsymbolDefinition1;
-        }
-     Debug.Assert(!_is(_fe | _fl));
-     // PushState4:
-     _s.Push(15);
-     goto EndWithError;
+     goto State13;
      }
+  case SomeLetters.e:
+  case SomeLetters.n:
+     goto State6;
+  case SomeLetters.f:
+  case SomeLetters.o:
+     goto State5;
   case SomeLetters.g:
-     goto State2;
+     goto AcceptState12;
+  case SomeLetters.h:
+     goto AcceptState11;
   case SomeLetters.i:
      {
      i++;
-     // State5:
-     /* examples= i, ►test, a, b*, (Local4)*, d+, e++, f?, (Local5)*, (Local6)?; */
-     if ((SomeLetters)InputLine[i] != SomeLetters.a)
+     // State9:
+     /* *Startsymbol= examples, ►t;
+      * i++= i, ►i++; */
+     // *Push(1)
+     if ((SomeLetters)InputLine[i] == SomeLetters.i)
+        {
+        i++;
+        // PushState1:
+        _s.Push(1);
+        goto State10;
+        }
+     if ((SomeLetters)InputLine[i] != SomeLetters.t)
         goto EndWithError;
-     Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.a);
+     Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.t);
      i++;
-     // State6:
-     /* examples= i, test, ►a, b*, (Local4)*, d+, e++, f?, (Local5)*, (Local6)?; */
-     if ((SomeLetters)InputLine[i] != SomeLetters.a)
-        goto EndWithError;
-     Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.a);
-     goto AcceptState8;
+     // Reduce3:
+     /* *Startsymbol= examples, t;◄ */
+     goto ApplyStartsymbolDefinition1;
      }
+  case SomeLetters.j:
+  case SomeLetters.q:
+     goto State3;
+  case SomeLetters.k:
+     goto AcceptState8;
+  case SomeLetters.l:
+     goto AcceptState7;
+  case SomeLetters.m:
+     goto State13;
+  case SomeLetters.p:
+     goto State4;
+  case SomeLetters.r:
+     goto State2;
+  case SomeLetters.t:
+     goto State14;
   } // end of switch
   Debug.Assert((SomeLetters)InputLine[i] <= SomeLetters.precedingCharacters || (SomeLetters)InputLine[i] >= SomeLetters.successiveCharacters);
 
@@ -133,208 +157,185 @@ namespace GrammlatorExamples {
 AcceptReduce1:
   i++;
   // Reduce1:
-  /* *Startsymbol= examples, l;◄ */
+  /* *Startsymbol= examples, t;◄ */
 ApplyStartsymbolDefinition1:
   // Halt: a definition of the startsymbol with 0 attributes has been recognized.
-  _s.Pop();
+  _s.Remove(1);
   goto EndOfGeneratedCode;
 
-Reduce3:
-  /* sAdjust: -2
-   * examples= i, test, a, b*, (Local4)*, d+, e++, f?, (Local5)*, (Local6)?;◄ */
-  _s.Discard(2);
-State18:
-  /* *Startsymbol= examples, ►l; */
-  if ((SomeLetters)InputLine[i] != SomeLetters.l)
-     goto EndWithError;
-  Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.l);
-  goto AcceptReduce1;
-
 State2:
-  /* *Startsymbol= examples, ►l;
-   * (Local2)*= (Local2)*, ►(Local2); */
-  if ((SomeLetters)InputLine[i] == SomeLetters.g)
-     {
-     i++;
-     goto State2;
-     }
-  if ((SomeLetters)InputLine[i] != SomeLetters.l)
+  /* examples= (Local5)**, ►r; */
+  Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.r);
+AcceptState14:
+  i++;
+State14:
+  /* *Startsymbol= examples, ►t; */
+  if ((SomeLetters)InputLine[i] != SomeLetters.t)
      goto EndWithError;
-  Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.l);
+  Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.t);
   goto AcceptReduce1;
 
 State3:
-  /* *Startsymbol= examples, ►l;
-   * (Local1)*= (Local1)*, ►(Local1); */
-  if ((SomeLetters)InputLine[i] == SomeLetters.c)
+  /* examples= (Local4)*, ►q;
+   * (Local4)*= (Local4)*, ►(Local4); */
+  if ((SomeLetters)InputLine[i] == SomeLetters.j)
      {
      i++;
      goto State3;
      }
-  if ((SomeLetters)InputLine[i] != SomeLetters.l)
+  if ((SomeLetters)InputLine[i] != SomeLetters.q)
      goto EndWithError;
-  Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.l);
-  goto AcceptReduce1;
+  Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.q);
+  goto AcceptState14;
 
 State4:
-  /* *Startsymbol= examples, ►l;
-   * b*= b*, ►b; */
-  if ((SomeLetters)InputLine[i] == SomeLetters.b)
+  /* examples= g**, ►p; */
+  Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.p);
+  goto AcceptState14;
+
+State5:
+  /* examples= f*, ►o;
+   * f*= f*, ►f; */
+  if ((SomeLetters)InputLine[i] == SomeLetters.f)
      {
      i++;
-     goto State4;
+     goto State5;
      }
-  if ((SomeLetters)InputLine[i] != SomeLetters.l)
+  if ((SomeLetters)InputLine[i] != SomeLetters.o)
      goto EndWithError;
-  Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.l);
+  Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.o);
+  goto AcceptState14;
+
+State6:
+  /* examples= (Local3)*, ►n;
+   * (Local3)*= (Local3)*, ►(Local3); */
+  if ((SomeLetters)InputLine[i] == SomeLetters.e)
+     {
+     i++;
+     goto State6;
+     }
+  if ((SomeLetters)InputLine[i] != SomeLetters.n)
+     goto EndWithError;
+  Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.n);
+  goto AcceptState14;
+
+AcceptState7:
+  i++;
+  // State7:
+  /* *Startsymbol= examples, ►t;
+   * test2+= test2+, ►test2; */
+  if ((SomeLetters)InputLine[i] == SomeLetters.l)
+     goto AcceptState7;
+  if ((SomeLetters)InputLine[i] != SomeLetters.t)
+     goto EndWithError;
+  Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.t);
   goto AcceptReduce1;
 
 AcceptState8:
   i++;
   // State8:
-  /* examples= i, test, a, b*, ►(Local4)*, d+, e++, f?, (Local5)*, (Local6)?;
-   * b*= b*, ►b; */
-  if ((SomeLetters)InputLine[i] == SomeLetters.b)
+  /* (Local5)**= (Local5), ►(Local5)**; */
+  _s.Push(1);
+  if ((SomeLetters)InputLine[i] == SomeLetters.k)
      goto AcceptState8;
-  if (!_is(_fc | _fd))
+  if ((SomeLetters)InputLine[i] != SomeLetters.r)
      goto EndWithError;
-  Debug.Assert(_is(_fc | _fd));
-State9:
-  /* examples= i, test, a, b*, (Local4)*, ►d+, e++, f?, (Local5)*, (Local6)?;
-   * (Local4)*= (Local4)*, ►(Local4); */
-  if ((SomeLetters)InputLine[i] == SomeLetters.c)
-     {
-     i++;
-     goto State9;
-     }
-  if ((SomeLetters)InputLine[i] != SomeLetters.d)
-     goto EndWithError;
-  Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.d);
-  i++;
+  Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.r);
+Reduce2:
+  /* sAdjust: -1
+   * (Local5)**= (Local5), (Local5)**;◄ */
+  _s.Remove(1);
+  // Branch1:
+  if (_s.Peek() == 0)
+     goto State2;
+  goto Reduce2;
+
 State10:
-  /* examples= i, test, a, b*, (Local4)*, d+, ►e++, f?, (Local5)*, (Local6)?;
-   * d+= d+, ►d; */// *Push(9)
-  if ((SomeLetters)InputLine[i] == SomeLetters.d)
+  /* i++= i, ►i++;
+   * i++= i, i++●; */
+  _s.Push(2);
+  if ((SomeLetters)InputLine[i] == SomeLetters.t)
+     // Reduce5:
      {
-     i++;
-     // Reduce2:
-     /* d+= d+, d;◄ */
-     goto State10;
+     /* sAdjust: -2
+      * i++= i, i++;◄ */
+     _s.Remove(2);
+     goto Branch2;
      }
-  if ((SomeLetters)InputLine[i] == SomeLetters.e)
-     {
-     i++;
-     // PushState1:
-     _s.Push(9);
-     // State14:
-     /* examples= i, test, a, b*, (Local4)*, d+, e++, ►f?, (Local5)*, (Local6)?;
-      * e++= e, ►e++; */
-     _s.Push(13);
-     if ((SomeLetters)InputLine[i] == SomeLetters.e)
-        goto AcceptState15;
-     if ((SomeLetters)InputLine[i] == SomeLetters.f)
-        goto AcceptState13;
-     if (!_is(_fg | _fh | _fl))
-        goto EndWithError;
-     Debug.Assert(_is(_fg | _fh | _fl));
-     goto State13;
-     }
-  Debug.Assert(!_is(_fd | _fe));
-  // PushState2:
-  _s.Push(9);
-  goto EndWithError;
+  if ((SomeLetters)InputLine[i] != SomeLetters.i)
+     goto EndWithError;
+  Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.i);
+  i++;
+  goto State10;
 
-State11:
-  /* examples= i, test, a, b*, (Local4)*, d+, e++, ►f?, (Local5)*, (Local6)?; */
-  _s.Push(10);
-  if ((SomeLetters)InputLine[i] <= SomeLetters.f)
-     goto AcceptState13;
-  Debug.Assert(_is(_fg | _fh | _fl));
-State13:
-  /* examples= i, test, a, b*, (Local4)*, d+, e++, f?, (Local5)*, ►(Local6)?;
-   * (Local5)*= (Local5)*, ►(Local5); */
-  if ((SomeLetters)InputLine[i] == SomeLetters.l)
-     goto Reduce3;
+AcceptState11:
+  i++;
+  // State11:
+  /* *Startsymbol= examples, ►t;
+   * h+= h+, ►h; */
   if ((SomeLetters)InputLine[i] == SomeLetters.h)
-     {
-     i++;
-     goto Reduce3;
-     }
-  if ((SomeLetters)InputLine[i] != SomeLetters.g)
+     goto AcceptState11;
+  if ((SomeLetters)InputLine[i] != SomeLetters.t)
      goto EndWithError;
-  Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.g);
-AcceptState13:
-  i++;
-  goto State13;
+  Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.t);
+  goto AcceptReduce1;
 
-AcceptState15:
+AcceptState12:
   i++;
-State15:
-  /* e++= e, ►e++;
-   * e++= e, e++●; */
-  _s.Push(14);
-  if ((SomeLetters)InputLine[i] == SomeLetters.e)
-     goto AcceptState15;
-  if (!_is(_ff | _fg | _fh | _fl))
+  // State12:
+  /* g**= g, ►g**; */
+  _s.Push(1);
+  if ((SomeLetters)InputLine[i] == SomeLetters.g)
+     goto AcceptState12;
+  if ((SomeLetters)InputLine[i] != SomeLetters.p)
      goto EndWithError;
-  Debug.Assert(_is(_ff | _fg | _fh | _fl));
-  // Reduce5:
-  /* sAdjust: -2
-   * e++= e, e++;◄ */
-  _s.Discard(2);
-Branch1:
+  Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.p);
+Reduce7:
+  /* sAdjust: -1
+   * g**= g, g**;◄ */
+  _s.Remove(1);
+  // Branch3:
+  if (_s.Peek() == 0)
+     goto State4;
+  goto Reduce7;
+
+State13:
+  /* examples= d?, ►m; */
+  if ((SomeLetters)InputLine[i] != SomeLetters.m)
+     goto EndWithError;
+  Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.m);
+  goto AcceptState14;
+
+Branch2:
   switch (_s.Peek())
   {
   case 0:
-     goto State18;
-  case 9:
-     goto State11;
-  case 13:
-     // Reduce4:
-     {
-     /* sAdjust: -1
-      * e++= e, e++;◄ */
-     _s.Pop();
-     goto State11;
-     }
-  case 14:
+     goto State14;
+  case 2:
      // Reduce6:
      {
      /* sAdjust: -1
-      * e++= e, e++;◄ */
-     _s.Pop();
-     goto Branch1;
+      * i++= i, i++;◄ */
+     _s.Remove(1);
+     goto Branch2;
      }
-  /*case 15:
+  /*case 1:
   default: break; */
   }
-  // Reduce8:
+  // Reduce4:
   /* sAdjust: -1
-   * e++= e, e++;◄ */
-  _s.Pop();
-  goto State18;
-
-AcceptState17:
-  i++;
-  // State17:
-  /* *Startsymbol= examples, ►l;
-   * d+= d+, ►d; */
-  if ((SomeLetters)InputLine[i] == SomeLetters.d)
-     goto AcceptState17;
-  if ((SomeLetters)InputLine[i] != SomeLetters.l)
-     goto EndWithError;
-  Debug.Assert((SomeLetters)InputLine[i] == SomeLetters.l);
-  goto AcceptReduce1;
+   * i++= i, i++;◄ */
+  _s.Remove(1);
+  goto State14;
 
 EndWithError:
   // This point is reached after an input error has been found
-  _s.Discard(_s.Count - _StateStackInitialCount);
+  _s.Remove(_s.Count - _StateStackInitialCount);
   DisplayRemainder(); return false;
-
 EndOfGeneratedCode:
   ;
 
-#endregion grammlator generated 12 Okt 2020 (grammlator file version/date 2020.10.10.0/11 Okt 2020)
+#endregion grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
          DisplayRemainder();
          return true;
       }

@@ -28,7 +28,7 @@ namespace GrammlatorExamples {
                TerminalSymbols2ndExample.AnalyzeInput ),
             new ExampleDescriptionAndMethod(
                "Example with two terminal symbols defined within grammlator *= a | b | c | d, c, b | d, b, c ;",
-               TerminalSymbols2ndExample.AnalyzeInput ),
+               TerminalSymbols3rdExample.AnalyzeInput ),
             new ExampleDescriptionAndMethod(
                "Example with a nonterminal symbol Variants = a, b | b, a ;",
                NonterminalSymbolsExample.AnalyzeInput ),
@@ -43,13 +43,13 @@ namespace GrammlatorExamples {
                RightRecursionExample.AnalyzeInput ),
             new ExampleDescriptionAndMethod(
                "Example with C# methods as semantic actions, displaying the input in reverse order.",
-               (new RevertExample()).AnalyzeInput),
+               RevertExample.AnalyzeInput),
             new ExampleDescriptionAndMethod(
                "Example with C# methods and attributes, displaying the input in reverse order.",
-               (new RevertExampleUsingAttributes()).AnalyzeInput),
+               RevertExampleUsingAttributes.AnalyzeInput),
             new ExampleDescriptionAndMethod(
                "Example with conflicts and priorities.",
-               (new ConflictsAndPrioritiesExample()).AnalyzeInput)
+               (ConflictsAndPrioritiesExample.AnalyzeInput))
             };
 
          string Line;
