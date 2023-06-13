@@ -56,12 +56,6 @@ namespace GrammlatorExamples {
       //|
       #endregion grammar
 
-      private static void Discard(this Stack<Int32> s, int n)
-      {
-         while (n > 0)
-         { n--; s.Pop(); }
-      }
-
       public static Boolean AnalyzeInput()
       {
          String InputLine = Console.ReadLine() + '*';

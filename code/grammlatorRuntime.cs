@@ -325,7 +325,6 @@ namespace GrammlatorRuntime {
    /// The other fields contain old or undefined values, may overlap on anonother and be overwritten by random binary patterns.
    /// The standard grammlator runtime provides all C# standard types. Additional types can be added.
    /// </summary>
-   [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1815:OverrideEqualsAndOperatorEqualsOnValueTypes")]
    [StructLayout(LayoutKind.Explicit)]
 #pragma warning disable CA1708 // Bezeichner dürfen sich nicht nur durch die Groß-/Kleinschreibung unterscheiden
    public partial struct MultiTypeStruct // may be extended by "partial" declarations
