@@ -4,7 +4,8 @@ using System.Diagnostics;
 
 using GrammlatorRuntime;
 
-namespace GrammlatorExamples {
+namespace GrammlatorDocumentation.code
+{
    class RevertExample {
 
       #region grammar
@@ -41,9 +42,9 @@ namespace GrammlatorExamples {
 
       #endregion grammar
 
-      public static Boolean AnalyzeInput(string line)
+      public static bool AnalyzeInput(string line)
       {
-         String InputLine = line + '*';
+         string InputLine = line + '*';
          int i = 0;
 
          // Local methods
@@ -52,10 +53,10 @@ namespace GrammlatorExamples {
          void DisplayRemainder()
             => Console.WriteLine(" Remainder of line: \"" + InputLine[i..] + "\"");
 
-         var StateStack = new Stack<Int32>(50);
+         var StateStack = new Stack<int>(50);
 
-#region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
-  Int32 _StateStackInitialCount = StateStack.Count;
+         #region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
+         int _StateStackInitialCount = StateStack.Count;
 
   // State1:
   /* *Startsymbol= ►Sequence_of_a_and_b_terminated_by_c; */

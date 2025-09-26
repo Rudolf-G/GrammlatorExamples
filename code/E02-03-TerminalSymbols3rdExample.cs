@@ -2,7 +2,8 @@ using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace GrammlatorExamples {
+namespace GrammlatorDocumentation.code
+{
    static class TerminalSymbols3rdExample {
       // a) The values of the terminal symbols are powers of 2 so that
       //    grammlator can generate code that uses the symbols as flags
@@ -22,7 +23,7 @@ namespace GrammlatorExamples {
       //|     *= a | b | c | d, c, b | d, b, c ;
       #endregion grammar
 
-      public static Boolean AnalyzeInput(string inputLine)
+      public static bool AnalyzeInput(string inputLine)
       {
          int i = 0;
          ThreeLetters NextSymbol;
@@ -36,9 +37,9 @@ namespace GrammlatorExamples {
             char x = i < inputLine.Length
                ? inputLine[i++]
                : (char)0;
-            NextSymbol = (x < 'a') || x > 'd'
+            NextSymbol = x < 'a' || x > 'd'
                ? ThreeLetters.other
-               : (ThreeLetters)(1 << (x - 'a'));
+               : (ThreeLetters)(1 << x - 'a');
          }
 
          void DisplayRemainder()

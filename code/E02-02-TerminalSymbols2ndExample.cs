@@ -1,9 +1,10 @@
 using System;
 using System.Diagnostics;
 
-namespace GrammlatorExamples {
+namespace GrammlatorDocumentation.code
+{
    static class TerminalSymbols2ndExample {
-      public static Boolean AnalyzeInput(string line)
+      public static bool AnalyzeInput(string line)
       {
          // This example uses C# constants to implement the terminal symbols.
          // The weird naming and assignment of values demonstrates that there

@@ -4,18 +4,19 @@ using System.Diagnostics;
 
 using GrammlatorRuntime;
 
-namespace GrammlatorExamples {
+namespace GrammlatorDocumentation.code
+{
    class RevertExampleUsingAttributes {
       enum AorBorEnd { a, b, End, Other }
 
-      public static Boolean AnalyzeInput(string line)
+      public static bool AnalyzeInput(string line)
       {
-         String Line = line;
+         string Line = line;
          int i = 0;
 
          // Local methods
          AorBorEnd PeekSymbol() =>
-            (i >= Line.Length) ? AorBorEnd.End
+            i >= Line.Length ? AorBorEnd.End
             : Line[i] >= 'a' && Line[i] <= 'b' ? (AorBorEnd)(Line[i] - 'a')
             : AorBorEnd.Other;
          
@@ -31,7 +32,7 @@ namespace GrammlatorExamples {
          static void Success() // explicitly called from own code after the generated code
             => Console.WriteLine(" This is the input in reversed order.");
 
-         var StateStack = new Stack<Int32>(50);
+         var StateStack = new Stack<int>(50);
          var AttrStack = new StackOfMultiTypeElements(50);
 
          #region grammar
@@ -69,9 +70,9 @@ namespace GrammlatorExamples {
          }
          #endregion grammar
 
-#region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
-  Int32 _StateStackInitialCount = StateStack.Count;
-  Int32 _AttributeStackInitialCount = AttrStack.Count;
+         #region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
+         int _StateStackInitialCount = StateStack.Count;
+         int _AttributeStackInitialCount = AttrStack.Count;
 
   // State1:
   /* *Startsymbol= ►Sequence_of_a_and_b, End; */

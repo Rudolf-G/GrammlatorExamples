@@ -1,6 +1,7 @@
 using System;
 
-namespace GrammlatorExamples {
+namespace GrammlatorDocumentation.code
+{
    static class TerminalSymbols1stExample {
       #region grammar
       //| /* grammlator settings: */
@@ -19,9 +20,9 @@ namespace GrammlatorExamples {
          int Column = 0;
 
          static SomeLetters CharToSomeLetters(char c)
-            => c < 'e' | c > 'o' ? SomeLetters.other : (SomeLetters)(c);
+            => c < 'e' | c > 'o' ? SomeLetters.other : (SomeLetters)c;
 
-         SomeLetters Peek() => (Column >= line.Length)
+         SomeLetters Peek() => Column >= line.Length
                   ? SomeLetters.eol
                   : CharToSomeLetters(line[Column]);
 

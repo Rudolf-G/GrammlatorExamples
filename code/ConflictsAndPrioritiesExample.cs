@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
 
-namespace GrammlatorExamples
+namespace GrammlatorDocumentation.code
 {
    internal class ConflictsAndPrioritiesExample
    {
@@ -26,9 +26,9 @@ namespace GrammlatorExamples
       //|
       #endregion grammar
 
-      public static Boolean AnalyzeInput(string line)
+      public static bool AnalyzeInput(string line)
       {
-         String InputLine = line + "*";
+         string InputLine = line + "*";
          int i = 0;
 
          // Local methods

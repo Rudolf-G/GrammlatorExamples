@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+
 using GrammlatorRuntime;
 
-namespace GrammlatorExamples {
+namespace GrammlatorDocumentation.code
+{
    static class OptionAndRepeatVariantsExample {
 
       #region grammar
@@ -56,9 +58,9 @@ namespace GrammlatorExamples {
       //|
       #endregion grammar
 
-      public static Boolean AnalyzeInput()
+      public static bool AnalyzeInput()
       {
-         String InputLine = Console.ReadLine() + '*';
+         string InputLine = Console.ReadLine() + '*';
          int i = 0;
 
          void DisplayRemainder()
@@ -66,8 +68,8 @@ namespace GrammlatorExamples {
 
          var _s = new Stack<int>();
 
-#region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
-  Int32 _StateStackInitialCount = _s.Count;
+         #region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
+         int _StateStackInitialCount = _s.Count;
 
   // State1:
   /* *Startsymbol= ►examples, t; */

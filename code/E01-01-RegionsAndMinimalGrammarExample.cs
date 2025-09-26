@@ -1,4 +1,5 @@
-namespace GrammlatorExamples {
+namespace GrammlatorDocumentation.code
+{
    static class RegionsAndMinimalGrammarExample {
       #region grammar
       //| *=;

@@ -1,13 +1,13 @@
 using System;
 using System.Diagnostics;
 
-namespace GrammlatorExamples
+namespace GrammlatorDocumentation.code
 {
    static class NonterminalSymbolsExample
    {
       enum SomeLetters
       {
-         precedingCharacters = (int)'a' - 1, a, b, c, successiveCharacters
+         precedingCharacters = 'a' - 1, a, b, c, successiveCharacters
       }
 
       #region grammar
@@ -25,9 +25,9 @@ namespace GrammlatorExamples
       //|   | b, a;
       #endregion grammar
 
-      public static Boolean AnalyzeInput(string line)
+      public static bool AnalyzeInput(string line)
       {
-         String InputLine = line + '*';
+         string InputLine = line + '*';
          int i = 0;
 
          // Local methods

@@ -1,20 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+
 using GrammlatorRuntime;
 
-namespace GrammlatorExamples
+namespace GrammlatorDocumentation.code
 {
    static class RightRecursionExample
    {
       private enum SomeLetters
       {
-         precedingCharacters = (int)'a' - 1, a, b, c, successiveCharacters
+         precedingCharacters = 'a' - 1, a, b, c, successiveCharacters
       }
 
-      public static Boolean AnalyzeInput(string line)
+      public static bool AnalyzeInput(string line)
       {
-         String InputLine = line + '*';
+         string InputLine = line + '*';
          int i = 0;
 
          // Local methods
@@ -25,26 +26,26 @@ namespace GrammlatorExamples
          void DisplayRemainder()
             => Console.WriteLine(" Remainder of line: \"" + InputLine[i..] + "\"");
 
-         var StateStack = new Stack<Int32>(50); // use Stack-Extension Discard
+         var StateStack = new Stack<int>(50); // use Stack-Extension Discard
 
-      #region grammar
-      //| TerminalSymbolEnum: "SomeLetters";
-      //| InputExpression: "PeekSymbol()"; InputAcceptInstruction: "AcceptSymbol();";
-      //| ErrorHaltInstruction: "DisplayRemainder(); return false;";
-      //| StateStack: "StateStack";
-      //| AttributeStack: "_a";
-      //|
-      //| precedingCharacters | a | b | c | successiveCharacters;
-      //|
-      //| *= Sequence_of_b_ending_with_a;
-      //|
-      //| Sequence_of_b_ending_with_a=
-      //|   a
-      //|   | b, Sequence_of_b_ending_with_a;
-      #endregion grammar
+         #region grammar
+         //| TerminalSymbolEnum: "SomeLetters";
+         //| InputExpression: "PeekSymbol()"; InputAcceptInstruction: "AcceptSymbol();";
+         //| ErrorHaltInstruction: "DisplayRemainder(); return false;";
+         //| StateStack: "StateStack";
+         //| AttributeStack: "_a";
+         //|
+         //| precedingCharacters | a | b | c | successiveCharacters;
+         //|
+         //| *= Sequence_of_b_ending_with_a;
+         //|
+         //| Sequence_of_b_ending_with_a=
+         //|   a
+         //|   | b, Sequence_of_b_ending_with_a;
+         #endregion grammar
 
-#region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
-  Int32 _StateStackInitialCount = StateStack.Count;
+         #region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
+         int _StateStackInitialCount = StateStack.Count;
 
   // State1:
   /* *Startsymbol= ►Sequence_of_b_ending_with_a; */

@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
 
-namespace GrammlatorExamples
+namespace GrammlatorDocumentation.code
 {
    static class LeftRecursionExampleWithRepeat
    {
@@ -15,9 +15,9 @@ namespace GrammlatorExamples
       //|
       #endregion grammar
 
-      public static Boolean AnalyzeInput()
+      public static bool AnalyzeInput()
       {
-         String InputLine = Console.ReadLine() + '*';
+         string InputLine = Console.ReadLine() + '*';
          int i = 0;
 
          // Local methods

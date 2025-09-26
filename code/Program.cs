@@ -1,56 +1,52 @@
 ﻿using System;
 using System.IO;
 
-namespace GrammlatorExamples {
+namespace GrammlatorDocumentation.code
+{
    class Program {
-      private struct ExampleDescriptionAndMethod {
-         public string Description;
+      private struct ExampleDescriptionAndMethod(string description, Func<string, bool> doIt)
+      {
+         public string Description = description;
 
-         public Func<string, bool> DoIt;
-
-         public ExampleDescriptionAndMethod(String description, Func<string, bool> doIt)
-         {
-            Description = description;
-            DoIt = doIt;
-         }
+         public Func<string, bool> DoIt = doIt;
       }
 
       static void Main()
       {
-         ExampleDescriptionAndMethod[] Examples = new ExampleDescriptionAndMethod[]
-            {
-            new ExampleDescriptionAndMethod("Example which defines an empty startsymbol *= ",
+         ExampleDescriptionAndMethod[] Examples =
+            [
+            new("Example which defines an empty startsymbol *= ",
                RegionsAndMinimalGrammarExample.RunExample ),
-            new ExampleDescriptionAndMethod("Hello example which uses terminalsymbols *=h e l l o eol",
+            new("Hello example which uses terminalsymbols *=h e l l o eol",
                TerminalSymbols1stExample.WriteAnswer ),
-            new ExampleDescriptionAndMethod(
+            new(
                "Example with two terminal symbols defined by enum *= a | b | c | d, c, b | d, b, c ;",
                TerminalSymbols2ndExample.AnalyzeInput ),
-            new ExampleDescriptionAndMethod(
+            new(
                "Example with two terminal symbols defined within grammlator *= a | b | c | d, c, b | d, b, c ;",
                TerminalSymbols3rdExample.AnalyzeInput ),
-            new ExampleDescriptionAndMethod(
+            new(
                "Example with a nonterminal symbol Variants = a, b | b, a ;",
                NonterminalSymbolsExample.AnalyzeInput ),
-            new ExampleDescriptionAndMethod(
+            new(
                "Example with which allows a | b | d | f by Letter_a_to_f-= c | e | CharactersPreceding_a | CharactersFollowing_f",
                AllExceptExample.AnalyzeInput ),
-            new ExampleDescriptionAndMethod(
+            new(
                "Example with left recursion *= Sequence_of_b,a; Sequence_of_b= /* empty  |  Sequence_of_b, b;",
                LeftRecursionExample.AnalyzeInput ),
-            new ExampleDescriptionAndMethod(
+            new(
                "Example with right recursion  Sequence_of_b_ending_with_a = a | b, Sequence_of_b_ending_with_a;",
                RightRecursionExample.AnalyzeInput ),
-            new ExampleDescriptionAndMethod(
+            new(
                "Example with C# methods as semantic actions, displaying the input in reverse order.",
                RevertExample.AnalyzeInput),
-            new ExampleDescriptionAndMethod(
+            new(
                "Example with C# methods and attributes, displaying the input in reverse order.",
                RevertExampleUsingAttributes.AnalyzeInput),
-            new ExampleDescriptionAndMethod(
+            new(
                "Example with conflicts and priorities.",
-               (ConflictsAndPrioritiesExample.AnalyzeInput))
-            };
+               ConflictsAndPrioritiesExample.AnalyzeInput)
+            ];
 
          string Line;
 
