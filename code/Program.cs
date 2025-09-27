@@ -35,8 +35,14 @@ namespace GrammlatorDocumentation.code
                "Example with left recursion *= Sequence_of_b,a; Sequence_of_b= /* empty  |  Sequence_of_b, b;",
                LeftRecursionExample.AnalyzeInput ),
             new(
+               "Example with left recursion *= b*, a;",
+               LeftRecursionExampleWithRepeat.AnalyzeInput ),
+            new(
                "Example with right recursion  Sequence_of_b_ending_with_a = a | b, Sequence_of_b_ending_with_a;",
                RightRecursionExample.AnalyzeInput ),
+            new(
+               "Extende BNF examples  * = [c]| d?, m | {e}, n | g**, p; ...",
+               OptionAndRepeatVariantsExample.AnalyzeInput ),
             new(
                "Example with C# methods as semantic actions, displaying the input in reverse order.",
                RevertExample.AnalyzeInput),
@@ -44,7 +50,7 @@ namespace GrammlatorDocumentation.code
                "Example with C# methods and attributes, displaying the input in reverse order.",
                RevertExampleUsingAttributes.AnalyzeInput),
             new(
-               "Example with conflicts and priorities.",
+               "Example with conflicts and priorities *= aa | aaaa| Sequence_of_b ??-1??; .",
                ConflictsAndPrioritiesExample.AnalyzeInput)
             ];
 

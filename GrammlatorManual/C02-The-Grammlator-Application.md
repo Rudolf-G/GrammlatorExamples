@@ -4,7 +4,9 @@ Grammlator is written in C# using Visual Studio. The source files and binaries a
 
 The grammlator project is published in https://github.com/Rudolf-G/grammlator20 . This project can be downloaded and executed in Visual Studio.
 
-The binaries are stored in https://github.com/Rudolf-G/grammlator20/tree/master/published as a zip-file. This zip-file can be downloaded (click the "download"-button) and unpacked in a directory. Then the contained exe-file can be started. It requires the other unpacked files in the same directory.
+The binaries are stored in https://github.com/Rudolf-G/grammlator20/tree/master/published as a zip-file. This zip-file can be downloaded (click the "download"-button) and unpacked in a directory. Then the contained exe-file can be started. It requires the other unpacked files in the same directory.  
+
+![Screenshot (no file open)](Grammlator-Screenshot-no-source.jpg)
 
 ## 2.2 The Grammlator User Interface
 
@@ -15,7 +17,7 @@ Grammlator shows up with a clearly structured user interface.
 
 The **title** displays the name of the actual source file (or "grammlator -no file-").
 
-Below the title is the **menu  `File Translate Compare Help` **.
+Below the title is the **menu  `File Translate Compare Help`**.
 
 Each of the **tabs `Source | Log | Symbols | Conflicts | States 1 | States 2 | Result | Info`** contains a text box. 
 
@@ -23,12 +25,15 @@ In  the **bottom area** grammlator will display messages which reference the sou
 
 ### 2.2.b The File Menu
 
-After starting grammlator you can type your source code into the **source textbox**. Or paste it from the clipboard. 
+After starting grammlator you can
+- type your source code into the **source textbox**
+- or  **paste** it by right mouse click from the clipboard.  
+> [!Tip]
+> To get a simple example select one of the examples in the **"Display example"** submenu of **"Help"** and **"Copy all"** by right mouse click to the clipboard.
 
-Or you can click **File** in the "File-Menu" and
-
-- **`Load source file ...` **in the submenu. This will copy the source text from the file and clear all previous results. The file will not be blocked and the  name of the file will be used as default filename and displayed in the title of the main window. 
-- **`Clear source tab !`** will clear the source textbox and all results so that you can start from scratch. It has no effect on a file and will clear the default file name.
+- Or you can click **File** in the "File-Menu" and 
+  - **`Load source file ...`** in the submenu. This will copy the source text from the file and clear all previous results. The file will not be blocked and the  name of the file will be used as default filename and displayed in the title of the main window. 
+  - **`Clear source textbox !`** will clear the source textbox and all results so that you can start from scratch. It has no effect on a file and will clear the default file name.
 
 As soon as the source textbox contains five lines or more, 
 
@@ -84,7 +89,29 @@ Because only lines in the this region are changed by translation, `Compare` help
 
 
 
+Links to all Chapters:
 
+ ## 0. [Abstract](C00-Grammlator-Manual)
+ ## 1. [Introduction](C01-Introduction.md)
+ ## 2. [The Grammlator Application](C02-The-Grammlator-Application.md)
+ ## 3. [Structure of the grammlator input (C# source file)](C03-Structure-of-the-grammlator-input.md) 
+ ## 4. [Basic Grammlator settings](C04-Basic-Grammlator-Settings.md)
+ ## 5. [Declare Terminal symbols](C05-Declare-Terminal-Symbols.md)
 
+ To be added later:
+ ## 6. Define the startsymbol and other nonterminal symbols
+ ### ... sequence of symbols (definition, alternative), priority, method
+ ### ... sequence of definitions, optional semicolon
+ ## 7. Use Recursion
+ ## 8. Semantic Attributes
+ ### Types
+ ### Stack 
+ ### Assignment by overlay
+ ### Usage and assignment by methods
+ ## 9. Syntactic sugar: repeat operators
+ ## 10. Solve Conflicts
+ ## 11. Advanced
+ ### 1st and last terminal symbol
+ ### Compiler Settings
 
-
+## 99.  [Appendix](C99-Appendix.md)

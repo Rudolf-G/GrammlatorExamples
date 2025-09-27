@@ -15,9 +15,9 @@ namespace GrammlatorDocumentation.code
       //|
       #endregion grammar
 
-      public static bool AnalyzeInput()
+      public static bool AnalyzeInput(string line)
       {
-         string InputLine = Console.ReadLine() + '*';
+         string InputLine = line + '*';
          int i = 0;
 
          // Local methods

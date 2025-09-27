@@ -30,8 +30,10 @@ If the generated code is allowed to look ahead prematurely then this instruction
 #### `TerminalSymbolEnum: "￿";`
 
 Initially `TerminalSymbolEnum` is set to undefined and if an enum is used to declare the terminal symbols then grammlator will replace it with the name of the enum.
-This name will be combined in the generated code with the names of the terminal symbols using the dot syntax `MyEnum.member`.
-`TerminalSymbolEnum : ""` assigns the empty string so that the name of an (optional) enum is not used in code generation.
+This name will be combined in the generated code with the names of the terminal symbols using the dot syntax `MyEnum.member`.  
+
+`TerminalSymbolEnum : ""` assigns the empty string so that the name of an (optional) enum is not used in code generation. 
+
 Typical usage: `"OtherClass.MyEnum"` if the enum defining the terminal symbols is defined in another class and a copy with a modified name is used to define the terminal symbols.
 
 #### `NameOfErrorHandlerMethod: "";`
@@ -127,3 +129,29 @@ This instruction is used to move n attribute values from one attribute stack to 
 #### `AttributeStackNameOfInitialCountVariable: "_AttributeStackInitialCount";`
 This  variable is declared and used in the generated code to store the initial size of the attribute stack (if an attribute stack is used in the generated code.
 A typical value is `"_AttributeStackInitialCount"`.
+Links to all Chapters:
+
+ ## 0. [Abstract](C00-Grammlator-Manual)
+ ## 1. [Introduction](C01-Introduction.md)
+ ## 2. [The Grammlator Application](C02-The-Grammlator-Application.md)
+ ## 3. [Structure of the grammlator input (C# source file)](C03-Structure-of-the-grammlator-input.md) 
+ ## 4. [Basic Grammlator settings](C04-Basic-Grammlator-Settings.md)
+ ## 5. [Declare Terminal symbols](C05-Declare-Terminal-Symbols.md)
+
+ To be added later:
+ ## 6. Define the startsymbol and other nonterminal symbols
+ ### ... sequence of symbols (definition, alternative), priority, method
+ ### ... sequence of definitions, optional semicolon
+ ## 7. Use Recursion
+ ## 8. Semantic Attributes
+ ### Types
+ ### Stack 
+ ### Assignment by overlay
+ ### Usage and assignment by methods
+ ## 9. Syntactic sugar: repeat operators
+ ## 10. Solve Conflicts
+ ## 11. Advanced
+ ### 1st and last terminal symbol
+ ### Compiler Settings
+
+## 99.  [Appendix](C99-Appendix.md)

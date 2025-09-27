@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Security.Cryptography.X509Certificates;
 
 using GrammlatorRuntime;
 
@@ -58,9 +59,9 @@ namespace GrammlatorDocumentation.code
       //|
       #endregion grammar
 
-      public static bool AnalyzeInput()
+      public static bool AnalyzeInput(string line)
       {
-         string InputLine = Console.ReadLine() + '*';
+         string InputLine = line + '*';
          int i = 0;
 
          void DisplayRemainder()

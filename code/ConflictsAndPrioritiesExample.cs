@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 
 namespace GrammlatorDocumentation.code
@@ -10,7 +11,7 @@ namespace GrammlatorDocumentation.code
       //| InputExpression: "PeekSymbol()"; InputAcceptInstruction: "AcceptSymbol();";
       //| StateStack: "StateStack"; AttributeStack: "AttrStack";
       //|
-      enum SomeLetters { a, b, c}
+      enum SomeLetters { a, b, other}
       //|
       //| *= aa 
       //|   | aaaa 
@@ -32,8 +33,9 @@ namespace GrammlatorDocumentation.code
          int i = 0;
 
          // Local methods
-         SomeLetters PeekSymbol()
-            => (SomeLetters)InputLine[i];
+         SomeLetters PeekSymbol() =>
+            (InputLine[i]) switch { 'a' => SomeLetters.a, 'b' => SomeLetters.b, _ => SomeLetters.other };
+
          void AcceptSymbol()
             => i++;
          void DisplayRemainder()
@@ -70,7 +72,7 @@ namespace GrammlatorDocumentation.code
      AcceptSymbol();
      goto EndOfGeneratedCode;
      }
-  if (PeekSymbol() == SomeLetters.c)
+  if (PeekSymbol() == SomeLetters.other)
      goto EndWithError;
   Debug.Assert(PeekSymbol() == SomeLetters.b);
 AcceptState2:

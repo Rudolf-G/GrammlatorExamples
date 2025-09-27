@@ -12,7 +12,7 @@ After assignments to its settings grammlator expects the declaration of all term
 
 - (or a redundant combination of both).
 
-*The optional declaration of semantic attributes and of weights of terminal symbols will be addressed  later*.
+[!Note] *The optional declaration of semantic attributes and of weights of terminal symbols will be addressed  later*.
 
 The name of a terminal symbol can be
 
@@ -33,3 +33,40 @@ It is not comfortable, to use names like `MyEnum.MyEnumElement`as names of termi
 
 may be used. If this value is defined grammlator will prefix each name of a terminal symbol in the generated code by this string and a point e.g. `MyEnum.xy`.
 
+[!Note] To be added later:
+
+ ### 5.a ... by a list of names
+
+ ### 5.b... by a C# enum
+
+ ### 5.c... by a combination
+
+ ### 5.d... as flags, with weight
+
+
+Links to all Chapters:
+
+ ## 0. [Abstract](C00-Grammlator-Manual)
+ ## 1. [Introduction](C01-Introduction.md)
+ ## 2. [The Grammlator Application](C02-The-Grammlator-Application.md)
+ ## 3. [Structure of the grammlator input (C# source file)](C03-Structure-of-the-grammlator-input.md) 
+ ## 4. [Basic Grammlator settings](C04-Basic-Grammlator-Settings.md)
+ ## 5. [Declare Terminal symbols](C05-Declare-Terminal-Symbols.md)
+
+ To be added later:
+ ## 6. Define the startsymbol and other nonterminal symbols
+ ### ... sequence of symbols (definition, alternative), priority, method
+ ### ... sequence of definitions, optional semicolon
+ ## 7. Use Recursion
+ ## 8. Semantic Attributes
+ ### Types
+ ### Stack 
+ ### Assignment by overlay
+ ### Usage and assignment by methods
+ ## 9. Syntactic sugar: repeat operators
+ ## 10. Solve Conflicts
+ ## 11. Advanced
+ ### 1st and last terminal symbol
+ ### Compiler Settings
+
+## 99.  [Appendix](C99-Appendix.md)
