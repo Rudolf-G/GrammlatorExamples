@@ -8,14 +8,14 @@ namespace GrammlatorDocumentation.code
       public static bool RunExample(string _)
       {
 
-#region grammlator generated 24 Nov. 2020 (grammlator file version/date 2020.11.09.0/22 Nov. 2020)
+#region grammlator generated 27 Sep 2025 (grammlator file version/date 2022.11.10.0/27 Sep 2025)
 
   goto EndOfGeneratedCode;
 
 EndOfGeneratedCode:
   ;
 
-#endregion grammlator generated 24 Nov. 2020 (grammlator file version/date 2020.11.09.0/22 Nov. 2020)
+#endregion grammlator generated 27 Sep 2025 (grammlator file version/date 2022.11.10.0/27 Sep 2025)
 
          return true;
       }

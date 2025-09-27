@@ -39,7 +39,7 @@ namespace GrammlatorDocumentation.code
          void DisplayRemainder()
             => Console.WriteLine($@"Remainder of line: ""{InputLine[i..]}""");
 
-#region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
+#region grammlator generated 27 Sep 2025 (grammlator file version/date 2022.11.10.0/27 Sep 2025)
 
   // State1:
   /* *Startsymbol= ►aa;
@@ -89,7 +89,7 @@ EndWithError:
 EndOfGeneratedCode:
   ;
 
-#endregion grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
+#endregion grammlator generated 27 Sep 2025 (grammlator file version/date 2022.11.10.0/27 Sep 2025)
 
          DisplayRemainder();
          return true;

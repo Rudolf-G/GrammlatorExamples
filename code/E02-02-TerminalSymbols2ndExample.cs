@@ -34,7 +34,7 @@ namespace GrammlatorDocumentation.code
          //| *= a | d, cLetter, b | d, b, cLetter ;
          #endregion grammar
 
-#region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
+#region grammlator generated 27 Sep 2025 (grammlator file version/date 2022.11.10.0/27 Sep 2025)
 
   // State1:
   /* *Startsymbol= ►a;
@@ -80,7 +80,7 @@ EndWithError:
 EndOfGeneratedCode:
   ;
 
-#endregion grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
+#endregion grammlator generated 27 Sep 2025 (grammlator file version/date 2022.11.10.0/27 Sep 2025)
          DisplayRemainder();
          return true;
       }

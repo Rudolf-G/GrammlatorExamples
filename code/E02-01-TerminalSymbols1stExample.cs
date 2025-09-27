@@ -12,7 +12,7 @@ namespace GrammlatorDocumentation.code
       //| NameOfAssertMethod: ""; // recommended: "Debug.Assert";
       //|
       //| /* Declaration of the terminal symbols by an enum: */
-      enum SomeLetters : ushort { e = 101, f, g, h, i, j, k, l, m, n, o, eol, other };
+      enum SomeLetters : ushort { e = 'e', f, g, h, i, j, k, l, m, n, o, eol, other };
       #endregion grammar
 
       static public bool WriteAnswer(string line)
@@ -37,7 +37,7 @@ namespace GrammlatorDocumentation.code
          //| 
          #endregion grammar
 
-#region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
+#region grammlator generated 27 Sep 2025 (grammlator file version/date 2022.11.10.0/27 Sep 2025)
 
   if (Peek() != SomeLetters.h)
      goto EndWithError;
@@ -67,7 +67,7 @@ EndWithError:
 EndOfGeneratedCode:
   ;
 
-#endregion grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
+#endregion grammlator generated 27 Sep 2025 (grammlator file version/date 2022.11.10.0/27 Sep 2025)
 
          return true;
       }

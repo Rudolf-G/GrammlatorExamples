@@ -70,9 +70,9 @@ namespace GrammlatorDocumentation.code
          }
          #endregion grammar
 
-         #region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
-         int _StateStackInitialCount = StateStack.Count;
-         int _AttributeStackInitialCount = AttrStack.Count;
+#region grammlator generated 27 Sep 2025 (grammlator file version/date 2022.11.10.0/27 Sep 2025)
+  Int32 _StateStackInitialCount = StateStack.Count;
+  Int32 _AttributeStackInitialCount = AttrStack.Count;
 
   // State1:
   /* *Startsymbol= ►Sequence_of_a_and_b, End; */
@@ -165,7 +165,7 @@ EndWithError:
 EndOfGeneratedCode:
   ;
 
-#endregion grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
+#endregion grammlator generated 27 Sep 2025 (grammlator file version/date 2022.11.10.0/27 Sep 2025)
 
          Success();
          return true;

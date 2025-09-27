@@ -68,8 +68,8 @@ namespace GrammlatorDocumentation.code
 
          var _s = new Stack<int>();
 
-         #region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
-         int _StateStackInitialCount = _s.Count;
+#region grammlator generated 27 Sep 2025 (grammlator file version/date 2022.11.10.0/27 Sep 2025)
+  Int32 _StateStackInitialCount = _s.Count;
 
   // State1:
   /* *Startsymbol= ►examples, t; */
@@ -331,7 +331,7 @@ EndWithError:
 EndOfGeneratedCode:
   ;
 
-#endregion grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
+#endregion grammlator generated 27 Sep 2025 (grammlator file version/date 2022.11.10.0/27 Sep 2025)
          DisplayRemainder();
          return true;
       }

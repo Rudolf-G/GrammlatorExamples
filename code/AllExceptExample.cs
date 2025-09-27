@@ -35,11 +35,11 @@ namespace GrammlatorDocumentation.code
          SomeLetters Peek()
             => InputLine[i] < 'a' || InputLine[i] > 'f' ? SomeLetters.other : (SomeLetters)InputLine[i];
 
-#region grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
-  const long _fa = 1L << (int)(SomeLetters.a-97);
-  const long _ff = 1L << (int)(SomeLetters.f-97);
-  const long _fother = 1L << (int)(SomeLetters.other-97);
-         bool _is(long flags) => (1L << (int)(Peek()-97) & flags) != 0;
+#region grammlator generated 27 Sep 2025 (grammlator file version/date 2022.11.10.0/27 Sep 2025)
+  const Int64 _fa = 1L << (Int32)(SomeLetters.a-97);
+  const Int64 _ff = 1L << (Int32)(SomeLetters.f-97);
+  const Int64 _fother = 1L << (Int32)(SomeLetters.other-97);
+  Boolean _is(Int64 flags) => (1L << (Int32)((Peek())-97) & flags) != 0;
 
   // State1:
   /* *Startsymbol= ►Letter_b_to_e; */
@@ -55,7 +55,7 @@ EndWithError:
 EndOfGeneratedCode:
   ;
 
-#endregion grammlator generated 23 Mar 2023 (grammlator file version/date 2022.11.10.0/17 Jan 2023)
+#endregion grammlator generated 27 Sep 2025 (grammlator file version/date 2022.11.10.0/27 Sep 2025)
          DisplayRemainder();
          return true;
       }
